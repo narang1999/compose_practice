@@ -42,10 +42,15 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
+import com.example.composebasics.data.MovieApi
 import com.example.composebasics.ui.theme.ComposeBasicsTheme
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
-
+   val movieApi :MovieApi by inject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -62,7 +67,7 @@ class MainActivity : ComponentActivity() {
             mutableStateOf(true)
         }
         if (shouldShowGreetings) {
-            Onboardings { shouldShowGreetings = !shouldShowGreetings }
+            Onboardings { lifecycleScope.launch(Dispatchers.IO) {  movieApi.getMovieList()}}
         } else {
             Greetings()
         }
