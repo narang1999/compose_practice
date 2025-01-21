@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
 import com.example.composebasics.data.MovieApi
+import com.example.composebasics.homescreen.ui.homeScreen
 import com.example.composebasics.ui.theme.ComposeBasicsTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -56,7 +57,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ComposeBasicsTheme {
                 // A surface container using the 'background' color from the theme
-                MyApp()
+                homeScreen(Modifier.padding())
             }
         }
     }
