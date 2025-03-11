@@ -5,6 +5,14 @@ import retrofit2.HttpException
 import java.util.concurrent.CancellationException
 
 object ApiHandlerFunctions {
+    inline fun<T,E> execute1(sCall:()->T, trans:(T)->E):NetworkResult<E>{
+        return try{
+            Success(trans(sCall()))
+        }catch(e:Exception){
+             Error(exception = e)
+        }
+
+    }
     inline fun <T, E> execute(serviceCall: () -> T, transform: (T) -> E): NetworkResult<E> {
         return try {
             Success(transform(serviceCall()))

@@ -16,11 +16,11 @@ interface MovieApiService {
                             @Header("Authorization") auth:String ="Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZmU1M2QwNzUwNzExYmZmZjY1MjM2MTM4MThhOWY2OSIsIm5iZiI6MTczMTY1NTY3OC42OTI5OTk4LCJzdWIiOiI2NzM2ZjdmZWNlNDk0MTAwMzJjMWVjMTUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.jl8mwHKE00kdiNA2Q9XYR-sG_Olk2ySjDPiYEFcyp7w"
     ):MovieResponse
 }
-class MovieApi{
+class MovieApi:IMovieApi{
     val api = RetrofitObject.api
 
-    suspend fun getMovieList():NetworkResult<MovieResponse>{
-       return ApiHandlerFunctions.execute({
+    override suspend fun getMovieList():NetworkResult<MovieResponse>{
+       return ApiHandlerFunctions.execute1({
             api.getMovieList()
         },{
             Log.i("MovieApi","$it")
@@ -28,4 +28,7 @@ class MovieApi{
         })
     }
 
+}
+interface IMovieApi{
+   suspend fun getMovieList():NetworkResult<MovieResponse>
 }

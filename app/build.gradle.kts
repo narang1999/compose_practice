@@ -80,4 +80,9 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+// Coroutines Test (If testing coroutines)
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+
+    // Mockito for mocking dependencies
+    testImplementation("org.mockito:mockito-core:4.11.0")
 }

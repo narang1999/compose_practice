@@ -57,32 +57,38 @@ fun HomeNewScreen(myViewModel: HomeViewModel?) {
     LaunchedEffect(Unit) {
         myViewModel?.getMovies()
     }
-    val movieState: State<List<BaseMovieData>?>? =
+    val movieState: State<com.example.composebasics.homescreen.data.repository.State<List<BaseMovieData>?>?>? =
         myViewModel?.nowShowingMovies?.collectAsState(null)
     LazyColumn {
-        movieState?.value?.forEach {
+       var value = movieState?.value
+        when (value) {
+        is com.example.composebasics.homescreen.data.repository.State.Success-> {
+            value.data?.forEach {
+                item { header(baseMovieData = it, { myViewModel?.getMovies() }) }
 
-            item { header(baseMovieData = it, { myViewModel.getMovies() }) }
-
-            if (it.type == MovieViewType.Horizontal) {
-                item {
-                    LazyRow {
-                        it.movie?.let {
-                            items(it) {
-                                movieItem(movie = it)
+                if (it.type == MovieViewType.Horizontal) {
+                    item {
+                        LazyRow {
+                            it.movie?.let {
+                                items(it) {
+                                    movieItem(movie = it)
+                                }
                             }
+
                         }
-
                     }
-                }
-            } else {
-                it.movie?.let {
-                    items(it) {
-                        movieItem(movie = it)
+                } else {
+                    it.movie?.let {
+                        items(it) {
+                            movieItem(movie = it)
+                        }
                     }
-                }
 
+                }
             }
+        }
+
+            else -> {}
         }
     }
 }
