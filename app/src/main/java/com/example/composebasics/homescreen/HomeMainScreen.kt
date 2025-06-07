@@ -57,6 +57,7 @@ fun HomeNewScreen(myViewModel: HomeViewModel?) {
     LaunchedEffect(Unit) {
         myViewModel?.getMovies()
     }
+
     val movieState: State<com.example.composebasics.homescreen.data.repository.State<List<BaseMovieData>?>?>? =
         myViewModel?.nowShowingMovies?.collectAsState(null)
     LazyColumn {
